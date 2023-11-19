@@ -30,7 +30,7 @@ def dalle3_create(prompt):
     res = json.loads(res.text)
     return res
 
-def userName(userId):
+def get_userName(userId):
     url = f'https://api.line.me/v2/bot/profile/{userId}'
     headers = {'Authorization': f'Bearer {LINE_CHANNEL_ACCESS_TOKEN}'}
     res = requests.get(url, headers=headers)
@@ -48,7 +48,7 @@ def bytes2image(res, userId, text):
     name = '/tmp/'+str(res['created'])+'.png'
     img.save(name, 'png')
     os.remove(origin_name)
-    user_name = userName(userId)
+    user_name = get_userName(userId)
     table.put_item(
         Item={
             'user_id': userId,
